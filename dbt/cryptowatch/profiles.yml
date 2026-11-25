@@ -1,0 +1,20 @@
+cryptowatch:
+  target: "{{ env_var('CW_DBT_TARGET', 'dev') }}"
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('CW_PROJECT') }}"
+      dataset: crypto_dev
+      location: EU
+      threads: 4
+      maximum_bytes_billed: 5000000000
+    prod:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('CW_PROJECT') }}"
+      dataset: crypto_gold
+      location: EU
+      threads: 4
+      maximum_bytes_billed: 50000000000
+      job_retries: 2

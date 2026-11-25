@@ -1,0 +1,25 @@
+name: cryptowatch
+version: "1.0.0"
+config-version: 2
+profile: cryptowatch
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+clean-targets: ["target"]
+
+vars:
+  ds: "2026-11-10"            # snapshot date; the Airflow DAG overrides it
+  trending_lookback_days: 7   # a coin is "newly trending" if absent from the trending list for this many days
+  trending_warmup_days: 3     # no trending/new alerts until we hold this many days of history (cold start)
+  repeat_days: 3              # same coin + same rule within N days is a repeat: stored, not re-notified
+  z_min_obs: 7                # minimum history for an anomaly z-score
+  z_window: 30
+
+models:
+  cryptowatch:
+    staging: {+schema: staging, +materialized: view}
+    marts: {+schema: gold, +materialized: table}
+seeds:
+  cryptowatch:
+    +schema: staging

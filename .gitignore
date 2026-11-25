@@ -1,0 +1,44 @@
+# Python bytecode and local tooling output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.venv/
+venv/
+ENV/
+*.egg-info/
+
+# dbt generated artifacts
+dbt/cryptowatch/target/
+dbt/cryptowatch/dbt_packages/
+dbt/cryptowatch/logs/
+
+# Local environment files may contain credentials
+.env
+.env.*
+!.env.example
+
+# Terraform working directories, state, and generated plans
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+
+# Local variable files may contain secrets
+*.tfvars
+*.tfvars.json
+
+# Local Terraform overrides and CLI configuration
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Terraform crash logs
+crash.log
+crash.*.log

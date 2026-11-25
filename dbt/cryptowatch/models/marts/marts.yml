@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: fct_coin_snapshots
+    description: One row per coin per day with its market-cap tier and the tier's move threshold.
+    columns:
+      - {name: coin_id, data_tests: [not_null]}
+      - {name: snapshot_date, data_tests: [not_null]}
+      - name: tier
+        data_tests: [{accepted_values: {arguments: {values: [LARGE, MID, SMALL, MICRO]}}}]
+      - {name: current_price, data_tests: [not_null]}
+    data_tests:
+      - dbt_utils_free_unique_key
+  - name: fct_alerts
+    description: One row per (coin, rule, day) alert, with is_repeat for suppression.
+    columns:
+      - {name: alert_id, data_tests: [unique, not_null]}
+      - name: rule_code
+        data_tests: [{accepted_values: {arguments: {values: [PRICE_MOVE, NEWLY_TRENDING, NEW_IN_UNIVERSE]}}}]
+      - name: severity
+        data_tests: [{accepted_values: {arguments: {values: [LOW, MEDIUM, HIGH]}}}]
+      - name: priority_score
+        data_tests: [{expression_is_true: {arguments: {expression: "priority_score between 0 and 100"}}}]
+      - name: image
+        data_tests: [{expression_is_true: {arguments: {expression: "image is null or image like 'https://%'"}}}]
+      - name: coin_link
+        data_tests: [{expression_is_true: {arguments: {expression: "coin_link like 'https://www.coingecko.com/en/coins/%'"}}}]

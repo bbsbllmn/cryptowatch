@@ -1,0 +1,30 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements-dev.txt
+      - run: ruff check dags scripts tests
+      - run: pytest -q --ignore=tests/test_dag.py
+      - name: End-to-end on fixtures (extractor, dbt models + tests on DuckDB, exact match with ground truth)
+        run: bash scripts/run_local_e2e.sh
+  dag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements-airflow.txt --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.11.2/constraints-3.12.txt
+      - run: pytest -q tests/test_dag.py
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: |
+          for e in dev prod; do (cd terraform/envs/$e && terraform init -backend=false && terraform validate); done
+          terraform fmt -check -recursive terraform

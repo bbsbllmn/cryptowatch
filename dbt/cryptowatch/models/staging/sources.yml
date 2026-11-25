@@ -1,0 +1,15 @@
+version: 2
+sources:
+  - name: crypto_raw
+    database: "{{ env_var('CW_PROJECT', 'crypto-dev-project') }}"
+    schema: crypto_raw
+    config:
+      loaded_at_field: fetched_at
+      freshness:
+        warn_after: {count: 30, period: hour}
+        error_after: {count: 54, period: hour}
+    tables:
+      - name: raw_markets
+        description: One row per coin per daily snapshot (top 500 by market cap), as fetched from CoinGecko /coins/markets.
+      - name: raw_trending
+        description: One row per trending coin per daily snapshot (/search/trending).

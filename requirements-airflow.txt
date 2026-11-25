@@ -1,0 +1,5 @@
+# DAG integrity test. Install WITH Airflow's constraints file so providers resolve:
+#   pip install -r requirements-airflow.txt --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.11.2/constraints-3.12.txt
+apache-airflow==2.11.2
+apache-airflow-providers-google
+pytest

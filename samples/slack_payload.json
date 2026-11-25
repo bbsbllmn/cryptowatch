@@ -1,0 +1,36 @@
+{
+  "text": "Crypto digest 2026-11-09: 1 alert (1 high)",
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Crypto digest 2026-11-09"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "*1* alert (1 high) from 500 coins \u00b7 1 continuing, not repeated"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": ":rotating_light: *<https://www.coingecko.com/en/coins/coin-003|Coin 003 (C003)>* \u00b7 Price move\n*Price* $120.38 \u00b7 *24h* -25.00% \u00b7 *Mkt cap* $258.64B (#3)\n_2026-11-09 05:07 UTC_\nCoin 003 (C003) moved -25.0% in 24h, beyond its LARGE tier threshold of 20%."
+      },
+      "accessory": {
+        "type": "image",
+        "image_url": "https://coin-images.coingecko.com/coins/images/1003/large/coin-003.png",
+        "alt_text": "Coin 003 (C003)"
+      }
+    },
+    {
+      "type": "divider"
+    }
+  ]
+}
